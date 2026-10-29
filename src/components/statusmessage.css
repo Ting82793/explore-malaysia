@@ -1,0 +1,59 @@
+.status-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 3rem 1rem;
+  border-radius: 12px;
+  background-color: var(--white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.status-message p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.status-icon {
+  font-size: 2.5rem;
+}
+
+/* Error state: red border and text */
+.status-error {
+  border: 2px solid var(--error);
+}
+
+.status-error p {
+  color: var(--error);
+}
+
+/* Spinning circle for the loading state */
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #e5e7eb;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.retry-btn {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.retry-btn:hover {
+  background-color: var(--primary-dark);
+}

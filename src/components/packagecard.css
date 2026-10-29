@@ -1,0 +1,103 @@
+.package-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-top: 4px solid var(--primary);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.package-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Category badge ---------- */
+.category-badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+  background-color: #e5e7eb;
+  color: var(--text);
+}
+
+/* One colour per category */
+.badge-beach-island {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-culture-heritage {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-highlands {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-city {
+  background-color: #ede9fe;
+  color: #5b21b6;
+}
+
+.badge-nature-adventure {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* ---------- Text ---------- */
+.package-destination {
+  font-size: 1.25rem;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.package-state {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+
+.package-description {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  flex: 1;              /* pushes the footer to the bottom of the card */
+  margin-bottom: 1rem;
+}
+
+/* ---------- Duration and price ---------- */
+.package-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.package-duration {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.package-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.package-price small {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: var(--text-light);
+}

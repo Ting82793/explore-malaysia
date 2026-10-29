@@ -1,0 +1,18 @@
+.package-count {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+/* Responsive grid: as many 280px+ columns as fit the screen */
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Mobile: one full-width column */
+@media (max-width: 480px) {
+  .package-grid {
+    grid-template-columns: 1fr;
+  }
+}

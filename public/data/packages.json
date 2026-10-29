@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "destination": "Langkawi Island Escape",
+    "state": "Kedah",
+    "category": "Beach & Island",
+    "durationDays": 3,
+    "durationNights": 2,
+    "price": 899,
+    "description": "Relax on white sand beaches, ride the SkyCab and explore mangrove forests by boat.",
+    "inclusions": ["2 nights beachfront hotel", "SkyCab ticket", "Mangrove boat tour", "Airport transfers"]
+  },
+  {
+    "id": 2,
+    "destination": "George Town Heritage Trail",
+    "state": "Penang",
+    "category": "Culture & Heritage",
+    "durationDays": 2,
+    "durationNights": 1,
+    "price": 459,
+    "description": "Walk through UNESCO heritage streets, discover street art and taste famous Penang hawker food.",
+    "inclusions": ["1 night heritage hotel", "Guided walking tour", "Hawker food tasting", "Penang Hill tram ticket"]
+  },
+  {
+    "id": 3,
+    "destination": "Cameron Highlands Tea Retreat",
+    "state": "Pahang",
+    "category": "Highlands",
+    "durationDays": 3,
+    "durationNights": 2,
+    "price": 649,
+    "description": "Escape the heat with cool mountain air, tea plantation visits and strawberry farms.",
+    "inclusions": ["2 nights highland resort", "Tea plantation tour", "Strawberry farm visit", "Return coach transfer"]
+  },
+  {
+    "id": 4,
+    "destination": "Kuala Lumpur City Explorer",
+    "state": "Kuala Lumpur",
+    "category": "City",
+    "durationDays": 2,
+    "durationNights": 1,
+    "price": 399,
+    "description": "See the Petronas Twin Towers, Batu Caves and the best shopping and food spots in the capital.",
+    "inclusions": ["1 night city hotel", "KLCC and Batu Caves tour", "Night market visit", "Hotel breakfast"]
+  },
+  {
+    "id": 5,
+    "destination": "Mount Kinabalu Climb",
+    "state": "Sabah",
+    "category": "Nature & Adventure",
+    "durationDays": 3,
+    "durationNights": 2,
+    "price": 1599,
+    "description": "Climb Malaysia's highest mountain with certified guides and watch the sunrise from the summit.",
+    "inclusions": ["Climbing permit", "Certified mountain guide", "1 night mountain lodge", "1 night Kota Kinabalu hotel"]
+  },
+  {
+    "id": 6,
+    "destination": "Taman Negara Rainforest",
+    "state": "Pahang",
+    "category": "Nature & Adventure",
+    "durationDays": 3,
+    "durationNights": 2,
+    "price": 749,
+    "description": "Explore one of the world's oldest rainforests with a canopy walk and river cruise.",
+    "inclusions": ["2 nights jungle resort", "Canopy walkway entry", "River boat cruise", "Night jungle walk"]
+  },
+  {
+    "id": 7,
+    "destination": "Redang Island Snorkelling",
+    "state": "Terengganu",
+    "category": "Beach & Island",
+    "durationDays": 4,
+    "durationNights": 3,
+    "price": 1199,
+    "description": "Snorkel in crystal-clear water with colourful coral reefs and sea turtles.",
+    "inclusions": ["3 nights island resort", "Return ferry", "3 snorkelling trips", "All meals"]
+  },
+  {
+    "id": 8,
+    "destination": "Melaka Historical Getaway",
+    "state": "Melaka",
+    "category": "Culture & Heritage",
+    "durationDays": 2,
+    "durationNights": 1,
+    "price": 379,
+    "description": "Discover A Famosa, Jonker Street and the colourful trishaws of this historic city.",
+    "inclusions": ["1 night boutique hotel", "Historical city tour", "Melaka River cruise", "Jonker Street night market"]
+  },
+  {
+    "id": 9,
+    "destination": "Kuching and Bako Discovery",
+    "state": "Sarawak",
+    "category": "Nature & Adventure",
+    "durationDays": 4,
+    "durationNights": 3,
+    "price": 1099,
+    "description": "Spot proboscis monkeys in Bako National Park and visit orangutans at Semenggoh.",
+    "inclusions": ["3 nights Kuching hotel", "Bako National Park trip", "Semenggoh wildlife centre visit", "Waterfront tour"]
+  },
+  {
+    "id": 10,
+    "destination": "Perhentian Islands Getaway",
+    "state": "Terengganu",
+    "category": "Beach & Island",
+    "durationDays": 3,
+    "durationNights": 2,
+    "price": 799,
+    "description": "Enjoy calm turquoise bays, island hopping and relaxing beach chalets.",
+    "inclusions": ["2 nights beach chalet", "Return ferry", "Island hopping tour", "Daily breakfast"]
+  },
+  {
+    "id": 11,
+    "destination": "Genting Highlands Fun Trip",
+    "state": "Pahang",
+    "category": "Highlands",
+    "durationDays": 2,
+    "durationNights": 1,
+    "price": 349,
+    "description": "Ride the Awana SkyWay and enjoy theme parks and cool weather above the clouds.",
+    "inclusions": ["1 night highland hotel", "SkyWay cable car ticket", "Theme park entry", "Return coach transfer"]
+  },
+  {
+    "id": 12,
+    "destination": "Ipoh Food and Caves Tour",
+    "state": "Perak",
+    "category": "Culture & Heritage",
+    "durationDays": 2,
+    "durationNights": 1,
+    "price": 419,
+    "description": "Taste famous Ipoh white coffee and visit beautiful limestone cave temples.",
+    "inclusions": ["1 night heritage hotel", "Cave temple tour", "Old Town food walk", "Hotel breakfast"]
+  }
+]

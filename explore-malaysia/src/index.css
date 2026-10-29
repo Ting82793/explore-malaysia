@@ -1,0 +1,46 @@
+/* Colour palette – reused across the whole site */
+:root {
+  --primary: #0f766e;      /* tropical teal */
+  --primary-dark: #115e59;
+  --accent: #f59e0b;       /* sunset orange */
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --bg: #f9fafb;
+  --white: #ffffff;
+  --error: #dc2626;
+  --success: #16a34a;
+}
+
+/* Simple reset so all browsers look the same */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Full-height layout: footer stays at the bottom even on short pages */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
