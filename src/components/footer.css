@@ -29,7 +29,8 @@
 }
 
 .footer-links a:hover {
-  color: var(--accent);
+  color: #fcd34d;
+  text-decoration: underline;
 }
 
 .footer-copy {

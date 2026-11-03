@@ -39,7 +39,7 @@ function Home() {
         <h1 className="hero-title">Explore Malaysia</h1>
         <p className="hero-tagline">Discover Malaysia, Create Memories.</p>
         <div className="hero-buttons">
-          <Link to="/packages" className="btn btn-primary">
+          <Link to="/packages" className="btn btn-light">
             View Packages
           </Link>
           <Link to="/contact" className="btn btn-outline">
