@@ -1,0 +1,49 @@
+.contact-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-top: 4px solid var(--primary);
+}
+
+/* ---------- Success message ---------- */
+.success-message {
+  background-color: #dcfce7;
+  border: 2px solid var(--success);
+  color: #166534;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.success-message p {
+  margin-top: 0.25rem;
+}
+
+/* ---------- Submit button ---------- */
+.submit-btn {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--accent);
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #d97706;
+}
+
+/* ---------- Mobile (480px and below) ---------- */
+@media (max-width: 480px) {
+  .contact-card {
+    padding: 1.25rem;
+  }
+}

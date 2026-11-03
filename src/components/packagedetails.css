@@ -1,0 +1,144 @@
+/* Dark see-through layer that covers the whole screen */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 200;            /* above the sticky navbar (100) */
+  animation: fade-in 0.2s ease-out;
+}
+
+/* White box in the middle */
+.modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;        /* scroll inside the box if it's too tall */
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  border-top: 6px solid var(--accent);
+  animation: slide-up 0.25s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--bg);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background-color: #e5e7eb;
+}
+
+.modal-category {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary);
+  background-color: #ccfbf1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+.modal-box h2 {
+  color: var(--text);
+  padding-right: 2rem;     /* don't overlap the ✕ button */
+}
+
+.modal-state {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.modal-description {
+  margin-bottom: 1.25rem;
+}
+
+/* Duration and price side by side */
+.modal-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background-color: var(--bg);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.info-value {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.modal-box h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-inclusions {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.modal-inclusions li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-done {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--primary);
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+.modal-done:hover {
+  background-color: var(--primary-dark);
+}
+
+@media (max-width: 480px) {
+  .modal-box {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .modal-info {
+    grid-template-columns: 1fr;
+  }
+}

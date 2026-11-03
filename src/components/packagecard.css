@@ -101,3 +101,24 @@
   font-weight: normal;
   color: var(--text-light);
 }
+
+/* ---------- View Details button (Feature 4) ---------- */
+.details-btn {
+  margin-top: 1rem;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: var(--primary);
+  background-color: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 999px;
+  padding: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.details-btn:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}

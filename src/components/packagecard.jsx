@@ -1,7 +1,8 @@
 import "./packagecard.css";
 
 // Reusable card that shows ONE travel package.
-// Props come from one item in packages.json.
+// Props come from one item in packages.json,
+// plus onViewDetails – a function to open the details pop-up.
 function PackageCard({
   destination,
   state,
@@ -10,6 +11,7 @@ function PackageCard({
   durationNights,
   price,
   description,
+  onViewDetails,
 }) {
   // "Beach & Island" -> "beach-island" (used for the badge colour in CSS)
   const categoryClass = category.toLowerCase().replace(/[^a-z]+/g, "-");
@@ -35,6 +37,10 @@ function PackageCard({
           <small> / person</small>
         </span>
       </div>
+
+      <button type="button" className="details-btn" onClick={onViewDetails}>
+        View Details
+      </button>
     </article>
   );
 }

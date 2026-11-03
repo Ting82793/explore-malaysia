@@ -2,10 +2,11 @@ import "./statusmessage.css";
 
 // Reusable message box for loading, error and empty states.
 // Props:
-//   type    – "loading", "error" or "empty"
-//   message – the text to show
-//   onRetry – (optional) function to run when the "Try Again" button is clicked
-function StatusMessage({ type, message, onRetry }) {
+//   type        – "loading", "error" or "empty"
+//   message     – the text to show
+//   onRetry     – (optional) function to run when the button is clicked
+//   buttonLabel – (optional) text on the button, "Try Again" by default
+function StatusMessage({ type, message, onRetry, buttonLabel = "Try Again" }) {
   return (
     <div
       className={`status-message status-${type}`}
@@ -18,10 +19,10 @@ function StatusMessage({ type, message, onRetry }) {
 
       <p>{message}</p>
 
-      {/* Only show the button if a retry function was passed in */}
+      {/* Only show the button if a function was passed in */}
       {onRetry && (
         <button className="retry-btn" onClick={onRetry}>
-          Try Again
+          {buttonLabel}
         </button>
       )}
     </div>
