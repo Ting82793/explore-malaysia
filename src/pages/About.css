@@ -20,9 +20,8 @@
 .about-mission {
   background-color: var(--primary);
   color: var(--white);
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 2rem;
-  border-left: 6px solid var(--accent);
 }
 
 .about-mission h3 {
@@ -36,7 +35,6 @@
   margin-bottom: 1.5rem;
 }
 
-
 .highlight-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -48,7 +46,7 @@
 .about-cta {
   text-align: center;
   background-color: #ccfbf1;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 2.5rem 1rem;
 }
 

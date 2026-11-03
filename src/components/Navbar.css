@@ -1,6 +1,6 @@
 .navbar {
   background-color: var(--white);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #ddd;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -74,7 +74,7 @@
     flex-direction: column;
     gap: 0;
     background-color: var(--white);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid #ddd;
   }
 
   .nav-links.open {

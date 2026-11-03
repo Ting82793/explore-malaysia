@@ -2,10 +2,9 @@
   max-width: 640px;
   margin: 0 auto;
   background-color: var(--white);
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border-top: 4px solid var(--primary);
+  border: 1px solid #ddd;
 }
 
 /* success message */
@@ -31,7 +30,7 @@
   color: var(--white);
   background-color: var(--primary);
   border: none;
-  border-radius: 999px;
+  border-radius: 4px;
   padding: 0.85rem;
   cursor: pointer;
   transition: background-color 0.2s;

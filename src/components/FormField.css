@@ -17,7 +17,7 @@
   border: 2px solid #d1d5db;
   border-radius: 8px;
   background-color: var(--white);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  
 }
 
 textarea.form-input {
@@ -28,21 +28,18 @@ textarea.form-input {
 .form-input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2);
 }
 
 /* red border = error */
 .input-error,
 .input-error:focus {
   border-color: var(--error);
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
 }
 
 /* green border = valid */
 .input-valid,
 .input-valid:focus {
   border-color: var(--success);
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
 }
 
 .error-text {
