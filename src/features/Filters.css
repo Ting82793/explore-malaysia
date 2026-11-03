@@ -1,3 +1,5 @@
+/* Toolbar and inputs for the new features (search, category, sort) */
+
 .package-filters {
   display: flex;
   flex-wrap: wrap;

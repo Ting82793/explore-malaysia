@@ -2,8 +2,19 @@ import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
 import PackageCard from "../components/PackageCard";
 import StatusMessage from "../components/StatusMessage";
-import PackageFilters from "../components/PackageFilters";
 import "./Packages.css";
+
+// ----- New features (all in the src/features folder) -----
+import SearchBar from "../features/SearchBar";            // Feature 1
+import CategoryFilter from "../features/CategoryFilter";  // Feature 2
+import SortMenu from "../features/SortMenu";              // Feature 3
+import {
+  searchPackages,
+  filterByCategory,
+  getCategories,
+  sortPackages,
+} from "../features/featureLogic";
+// Feature 4 (details page) is connected in App.jsx and PackageCard.jsx
 
 // Mock API: a local JSON file in public/data/packages.json
 const API_URL = "/data/packages.json";
@@ -60,41 +71,11 @@ function Packages() {
     setSortBy("default");
   }
 
-  // ----- Category list for the dropdown -----
-  // Add each category only once (skip ones already in the list)
-  const categories = ["All"];
-  packages.forEach((pkg) => {
-    if (!categories.includes(pkg.category)) {
-      categories.push(pkg.category);
-    }
-  });
-
-  // ----- Apply search, filter and sort -----
-  // The original `packages` list is never changed.
-  // .filter() makes a NEW list, so it is safe to .sort() it.
-  const searchText = searchTerm.trim().toLowerCase();
-
-  const visiblePackages = packages
-    .filter((pkg) => {
-      // Feature 1: does the destination or state contain the search text?
-      const matchesSearch =
-        pkg.destination.toLowerCase().includes(searchText) ||
-        pkg.state.toLowerCase().includes(searchText);
-
-      // Feature 2: is it in the chosen category?
-      const matchesCategory =
-        selectedCategory === "All" || pkg.category === selectedCategory;
-
-      return matchesSearch && matchesCategory;
-    })
-    .sort((a, b) => {
-      // Feature 3: negative number = a goes first, positive = b goes first
-      if (sortBy === "price-asc") return a.price - b.price;
-      if (sortBy === "price-desc") return b.price - a.price;
-      if (sortBy === "duration-asc") return a.durationDays - b.durationDays;
-      if (sortBy === "duration-desc") return b.durationDays - a.durationDays;
-      return a.id - b.id; // "Recommended" = original order
-    });
+  // ----- Apply the features, one step at a time -----
+  const categories = getCategories(packages);                         // for the dropdown
+  const searched = searchPackages(packages, searchTerm);               // Feature 1
+  const filtered = filterByCategory(searched, selectedCategory);       // Feature 2
+  const visiblePackages = sortPackages(filtered, sortBy);              // Feature 3
 
   // ----- Decide what to show -----
   let content;
@@ -114,16 +95,19 @@ function Packages() {
   } else {
     content = (
       <div>
-        <PackageFilters
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          sortBy={sortBy}
-          onSortChange={setSortBy}
-          onReset={handleReset}
-        />
+        {/* Toolbar with the new features */}
+        <div className="package-filters">
+          <SearchBar value={searchTerm} onChange={setSearchTerm} />
+          <CategoryFilter
+            categories={categories}
+            value={selectedCategory}
+            onChange={setSelectedCategory}
+          />
+          <SortMenu value={sortBy} onChange={setSortBy} />
+          <button type="button" className="reset-btn" onClick={handleReset}>
+            Reset
+          </button>
+        </div>
 
         <p className="package-count" aria-live="polite">
           Showing {visiblePackages.length} of {packages.length} packages

@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Packages from "./pages/Packages";
-import PackageDetails from "./pages/PackageDetails";
+import PackageDetails from "./features/PackageDetails";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
