@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import PageHeader from "../components/pageheader.jsx";
-import HighlightCard from "../components/highlightcard.jsx";
-import "./about.css";
+import PageHeader from "../components/PageHeader";
+import HighlightCard from "../components/HighlightCard";
+import "./About.css";
 
 // Highlight data – stored as an array, then shown with .map()
 const highlights = [

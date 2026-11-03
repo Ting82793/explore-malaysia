@@ -104,6 +104,9 @@
 
 /* ---------- View Details button (Feature 4) ---------- */
 .details-btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
   margin-top: 1rem;
   width: 100%;
   font-family: inherit;

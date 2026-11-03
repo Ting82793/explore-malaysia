@@ -38,6 +38,13 @@ textarea.form-input {
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
 }
 
+/* Green border when the entry is valid */
+.input-valid,
+.input-valid:focus {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+}
+
 .error-text {
   color: var(--error);
   font-size: 0.875rem;

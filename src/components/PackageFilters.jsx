@@ -1,18 +1,9 @@
-import "./packagefilters.css";
+import "./PackageFilters.css";
 
 // Reusable toolbar with the search box, category filter and sort menu.
 // It does NOT store anything itself – the Packages page owns the state
-// and passes the values + "change" functions down as props.
-function PackageFilters({
-  searchTerm,
-  onSearchChange,
-  categories,
-  selectedCategory,
-  onCategoryChange,
-  sortBy,
-  onSortChange,
-  onReset,
-}) {
+// and passes the values and the "change" functions down as props.
+function PackageFilters(props) {
   return (
     <div className="package-filters">
       {/* FEATURE 1: Search */}
@@ -20,10 +11,11 @@ function PackageFilters({
         <label htmlFor="search">Search</label>
         <input
           id="search"
+          name="search"
           type="search"
           placeholder="Destination or state, e.g. Penang"
-          value={searchTerm}
-          onChange={(e) => onSearchChange(e.target.value)}
+          value={props.searchTerm}
+          onChange={(e) => props.onSearchChange(e.target.value)}
         />
       </div>
 
@@ -32,10 +24,11 @@ function PackageFilters({
         <label htmlFor="category">Category</label>
         <select
           id="category"
-          value={selectedCategory}
-          onChange={(e) => onCategoryChange(e.target.value)}
+          name="category"
+          value={props.selectedCategory}
+          onChange={(e) => props.onCategoryChange(e.target.value)}
         >
-          {categories.map((cat) => (
+          {props.categories.map((cat) => (
             <option key={cat} value={cat}>
               {cat === "All" ? "All categories" : cat}
             </option>
@@ -48,8 +41,9 @@ function PackageFilters({
         <label htmlFor="sort">Sort by</label>
         <select
           id="sort"
-          value={sortBy}
-          onChange={(e) => onSortChange(e.target.value)}
+          name="sort"
+          value={props.sortBy}
+          onChange={(e) => props.onSortChange(e.target.value)}
         >
           <option value="default">Recommended</option>
           <option value="price-asc">Price: Low to High</option>
@@ -59,7 +53,7 @@ function PackageFilters({
         </select>
       </div>
 
-      <button type="button" className="reset-btn" onClick={onReset}>
+      <button type="button" className="reset-btn" onClick={props.onReset}>
         Reset
       </button>
     </div>

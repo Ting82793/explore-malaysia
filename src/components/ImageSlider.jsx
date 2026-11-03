@@ -1,39 +1,41 @@
 import { useState, useEffect } from "react";
-import "./imageslider.css";
+import "./ImageSlider.css";
 
 // Reusable image slider.
 // Props:
-//   slides   – array of { id, image, alt, caption }
-//   interval – milliseconds between automatic slide changes (default 5000)
-//   children – any content to show on top of the slides (e.g. title, buttons)
-function ImageSlider({ slides, interval = 5000, children }) {
-  // Which slide is showing right now (0 = first slide)
+//   props.slides   – array of { id, image, alt, caption }
+//   props.interval – milliseconds between slide changes (5000 if not given)
+//   props.children – content shown on top of the slides (title, buttons)
+function ImageSlider(props) {
+  const slides = props.slides;
+  const interval = props.interval || 5000;
+
+  // State: which slide is showing now (0 = first slide)
   const [currentIndex, setCurrentIndex] = useState(0);
 
   function goToNext() {
-    // % slides.length makes it loop back to 0 after the last slide
-    setCurrentIndex((prev) => (prev + 1) % slides.length);
+    // % (remainder) makes it go back to 0 after the last slide
+    setCurrentIndex((currentIndex + 1) % slides.length);
   }
 
   function goToPrevious() {
     // + slides.length stops the number going below 0
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentIndex((currentIndex - 1 + slides.length) % slides.length);
   }
 
-  // Auto-play: move to the next slide every `interval` milliseconds
+  // useEffect with a timer: go to the next slide every few seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
+      setCurrentIndex((currentIndex + 1) % slides.length);
     }, interval);
 
-    // Cleanup: stop the old timer before a new one starts
-    // (also restarts the countdown when the user clicks a button)
+    // Cleanup: stop the old timer before the next one starts
     return () => clearInterval(timer);
   }, [currentIndex, interval, slides.length]);
 
   return (
     <div className="slider">
-      {/* All slides are stacked; only the active one is visible */}
+      {/* All slides are stacked; only the "active" one is visible */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -44,8 +46,8 @@ function ImageSlider({ slides, interval = 5000, children }) {
         </div>
       ))}
 
-      {/* Content passed in from the parent (title, tagline, buttons) */}
-      <div className="slider-overlay">{children}</div>
+      {/* Content passed in between <ImageSlider> and </ImageSlider> */}
+      <div className="slider-overlay">{props.children}</div>
 
       <button
         className="slider-btn prev"

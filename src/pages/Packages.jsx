@@ -1,75 +1,57 @@
 import { useState, useEffect } from "react";
-import PageHeader from "../components/pageheader.jsx";
-import PackageCard from "../components/packagecard.jsx";
-import StatusMessage from "../components/statusmessage.jsx";
-import PackageFilters from "../components/packagefilters.jsx";
-import PackageDetails from "../components/packagedetails.jsx";
-import "./packages.css";
+import PageHeader from "../components/PageHeader";
+import PackageCard from "../components/PackageCard";
+import StatusMessage from "../components/StatusMessage";
+import PackageFilters from "../components/PackageFilters";
+import "./Packages.css";
 
-// Mock API: a JSON file served from public/data/packages.json
+// Mock API: a local JSON file in public/data/packages.json
 const API_URL = "/data/packages.json";
 
 function Packages() {
   // ----- State: API data -----
-  const [packages, setPackages] = useState([]);   // the data from the API
+  const [packages, setPackages] = useState([]);   // starts as an empty list
   const [loading, setLoading] = useState(true);   // true while fetching
   const [error, setError] = useState(null);       // error message, or null
-  const [reloadKey, setReloadKey] = useState(0);  // changes to re-fetch
+  const [reloadKey, setReloadKey] = useState(0);  // change it to fetch again
 
   // ----- State: new features -----
-  const [searchTerm, setSearchTerm] = useState("");             // Feature 1
-  const [selectedCategory, setSelectedCategory] = useState("All"); // Feature 2
-  const [sortBy, setSortBy] = useState("default");              // Feature 3
-  const [selectedPackage, setSelectedPackage] = useState(null); // Feature 4
+  const [searchTerm, setSearchTerm] = useState("");                 // Feature 1
+  const [selectedCategory, setSelectedCategory] = useState("All");  // Feature 2
+  const [sortBy, setSortBy] = useState("default");                  // Feature 3
 
   // ----- Fetch data from the API -----
-  // Runs when the page first loads, and again whenever reloadKey changes
+  // Runs once when the page loads, and again whenever reloadKey changes
   useEffect(() => {
-    // If the user leaves the page before the fetch finishes,
-    // ignore becomes true so we don't update state on a closed page
-    let ignore = false;
-
-    async function loadPackages() {
-      try {
-        const response = await fetch(API_URL);
-
-        // fetch() only fails on network errors, so check the HTTP status too
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
+    fetch(API_URL)
+      .then((res) => {
+        // fetch() does not treat 404 as an error, so we check it ourselves
+        if (!res.ok) {
+          throw new Error("Server responded with status " + res.status);
         }
-
-        const data = await response.json();
-
+        return res.json(); // convert the response into JavaScript data
+      })
+      .then((data) => {
         // Make sure the API gave us a list
         if (!Array.isArray(data)) {
           throw new Error("API did not return a list of packages");
         }
-
-        if (!ignore) setPackages(data);
-      } catch (err) {
+        setPackages(data); // store the data in state
+        setLoading(false);
+      })
+      .catch((err) => {
+        // Runs if ANYTHING above fails
         console.error("Failed to load packages:", err);
-        if (!ignore) {
-          setError("Sorry, we couldn't load the travel packages. Please try again.");
-        }
-      } finally {
-        // Runs after success OR error
-        if (!ignore) setLoading(false);
-      }
-    }
-
-    loadPackages();
-
-    // Cleanup function
-    return () => {
-      ignore = true;
-    };
+        setError("Sorry, we couldn't load the travel packages. Please try again.");
+        setLoading(false);
+      });
   }, [reloadKey]);
 
   // ----- Button handlers -----
   function handleRetry() {
     setLoading(true);
     setError(null);
-    setReloadKey((prev) => prev + 1); // changing this re-runs useEffect
+    setReloadKey(reloadKey + 1); // changing this runs useEffect again
   }
 
   function handleReset() {
@@ -78,17 +60,18 @@ function Packages() {
     setSortBy("default");
   }
 
-  function closeDetails() {
-    setSelectedPackage(null);
-  }
-
   // ----- Category list for the dropdown -----
-  // new Set() removes duplicates, so each category appears only once
-  const categories = ["All", ...new Set(packages.map((pkg) => pkg.category))];
+  // Add each category only once (skip ones already in the list)
+  const categories = ["All"];
+  packages.forEach((pkg) => {
+    if (!categories.includes(pkg.category)) {
+      categories.push(pkg.category);
+    }
+  });
 
   // ----- Apply search, filter and sort -----
-  // We never change the original `packages` array.
-  // .filter() makes a NEW array, so it is safe to .sort() it.
+  // The original `packages` list is never changed.
+  // .filter() makes a NEW list, so it is safe to .sort() it.
   const searchText = searchTerm.trim().toLowerCase();
 
   const visiblePackages = packages
@@ -105,7 +88,7 @@ function Packages() {
       return matchesSearch && matchesCategory;
     })
     .sort((a, b) => {
-      // Feature 3: a negative number puts a first, positive puts b first
+      // Feature 3: negative number = a goes first, positive = b goes first
       if (sortBy === "price-asc") return a.price - b.price;
       if (sortBy === "price-desc") return b.price - a.price;
       if (sortBy === "duration-asc") return a.durationDays - b.durationDays;
@@ -130,7 +113,7 @@ function Packages() {
     );
   } else {
     content = (
-      <>
+      <div>
         <PackageFilters
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
@@ -159,6 +142,7 @@ function Packages() {
             {visiblePackages.map((pkg) => (
               <PackageCard
                 key={pkg.id}
+                id={pkg.id}
                 destination={pkg.destination}
                 state={pkg.state}
                 category={pkg.category}
@@ -166,12 +150,11 @@ function Packages() {
                 durationNights={pkg.durationNights}
                 price={pkg.price}
                 description={pkg.description}
-                onViewDetails={() => setSelectedPackage(pkg)}
               />
             ))}
           </div>
         )}
-      </>
+      </div>
     );
   }
 
@@ -182,11 +165,6 @@ function Packages() {
         subtitle="Handpicked trips to the best destinations across Malaysia."
       />
       {content}
-
-      {/* Feature 4: only show the pop-up when a package is selected */}
-      {selectedPackage && (
-        <PackageDetails pkg={selectedPackage} onClose={closeDetails} />
-      )}
     </section>
   );
 }

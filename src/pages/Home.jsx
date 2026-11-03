@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import ImageSlider from "../components/imageslider.jsx";
-import "./home.css";
+import ImageSlider from "../components/ImageSlider";
+import "./Home.css";
 
 // Slide data – images live in public/images/
 // Each slide has a unique id (for React keys) and alt text (for accessibility)
