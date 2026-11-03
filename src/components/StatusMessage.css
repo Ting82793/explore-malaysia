@@ -19,7 +19,7 @@
   font-size: 2.5rem;
 }
 
-/* Error state: red border and text */
+/* error */
 .status-error {
   border: 2px solid var(--error);
 }
@@ -28,7 +28,7 @@
   color: var(--error);
 }
 
-/* Spinning circle for the loading state */
+/* loading spinner */
 .spinner {
   width: 48px;
   height: 48px;

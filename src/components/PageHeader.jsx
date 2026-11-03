@@ -1,9 +1,6 @@
 import "./PageHeader.css";
 
-// Reusable page heading used on Packages, About and Contact.
-// Props:
-//   props.title    – main heading text
-//   props.subtitle – short line under the heading
+// title at the top of each page
 function PageHeader(props) {
   return (
     <header className="page-header">

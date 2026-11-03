@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
+  // so the year updates by itself
+  const year = new Date().getFullYear();
 
   return (
     <footer className="footer">
@@ -19,9 +20,7 @@ function Footer() {
         </div>
       </div>
 
-      <p className="footer-copy">
-        © {currentYear} Explore Malaysia. All rights reserved.
-      </p>
+      <p className="footer-copy">© {year} Explore Malaysia. All rights reserved.</p>
     </footer>
   );
 }

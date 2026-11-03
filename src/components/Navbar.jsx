@@ -3,10 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
-  // true = mobile menu is showing, false = hidden
+  // for the mobile menu (open or close)
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Navigation links stored as data, then shown with .map()
   const links = [
     { path: "/", label: "Home" },
     { path: "/packages", label: "Packages" },
@@ -25,24 +24,22 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        {/* <Link> changes the URL without reloading the page */}
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           Explore <span>Malaysia</span>
         </Link>
 
+        {/* only shows on small screens */}
         <button
           className="menu-toggle"
           onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
+          aria-label="Open menu"
         >
           {menuOpen ? "✕" : "☰"}
         </button>
 
         <nav className={menuOpen ? "nav-links open" : "nav-links"}>
+          {/* NavLink adds the "active" class to the current page link */}
           {links.map((link) => (
-            // NavLink is a Link that automatically adds the class "active"
-            // when its page is open, so CSS can highlight it
             <NavLink
               key={link.path}
               to={link.path}

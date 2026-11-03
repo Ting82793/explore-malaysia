@@ -48,7 +48,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* Duration and price side by side */
+/* duration and price */
 .details-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -86,7 +86,7 @@
   border-bottom: 1px solid #eee;
 }
 
-/* ---------- Mobile (480px and below) ---------- */
+/* mobile (480px and below) */
 @media (max-width: 480px) {
   .details-card {
     padding: 1.25rem;
@@ -97,10 +97,10 @@
   }
 
   .details-info {
-    grid-template-columns: 1fr;   /* stack duration and price */
+    grid-template-columns: 1fr;
   }
 
   .details-card .btn {
-    display: block;               /* full-width button on phones */
+    display: block;
   }
 }

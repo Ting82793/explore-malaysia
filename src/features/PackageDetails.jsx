@@ -3,86 +3,67 @@ import { useParams, Link } from "react-router-dom";
 import StatusMessage from "../components/StatusMessage";
 import "./PackageDetails.css";
 
-const API_URL = "/data/packages.json";
-
-// FEATURE 4: Package details page, e.g. /packages/3
+// Feature 4 - details page for one package (e.g. /packages/3)
 function PackageDetails() {
-  // useParams() reads the :id part of the URL.
-  // If the URL is /packages/3, then id = "3" (a STRING)
+  // get the id from the url
   const { id } = useParams();
 
-  const [pkg, setPkg] = useState(null);       // the one package to show
+  const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch the data, then find the package with the matching id.
-  // [id] = run again if the id in the URL changes.
   useEffect(() => {
-    fetch(API_URL)
+    fetch("/data/packages.json")
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Server responded with status " + res.status);
+          throw new Error("Failed to load");
         }
         return res.json();
       })
       .then((data) => {
-        // parseInt turns "3" into 3, so it can match the number in the JSON
+        // id from url is a string, so use parseInt to change it to a number
         const found = data.find((item) => item.id === parseInt(id));
-        setPkg(found || null); // null if no package has this id
+        setPkg(found);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Failed to load package:", err);
+        console.log(err);
         setError("Sorry, we couldn't load this package. Please try again later.");
         setLoading(false);
       });
   }, [id]);
 
-  // Link back to the list (used in every state below)
-  const backLink = (
-    <Link to="/packages" className="back-link">
-      ← Back to Packages
-    </Link>
-  );
-
-  // ----- Loading -----
   if (loading) {
     return <StatusMessage type="loading" message="Loading package details..." />;
   }
 
-  // ----- Error -----
   if (error) {
     return (
       <div>
-        {backLink}
+        <Link to="/packages" className="back-link">← Back to Packages</Link>
         <StatusMessage type="error" message={error} />
       </div>
     );
   }
 
-  // ----- No package with this id (e.g. /packages/99) -----
+  // no package with this id (e.g. /packages/99)
   if (!pkg) {
     return (
       <div>
-        {backLink}
-        <StatusMessage
-          type="empty"
-          message="Sorry, we couldn't find that package. It may no longer be available."
-        />
+        <Link to="/packages" className="back-link">← Back to Packages</Link>
+        <StatusMessage type="empty" message="Sorry, this package can't be found." />
       </div>
     );
   }
 
-  // ----- Package found -----
   return (
-    <section className="details-page">
-      {backLink}
+    <section>
+      <Link to="/packages" className="back-link">← Back to Packages</Link>
 
-      <article className="details-card">
+      <div className="details-card">
         <span className="details-category">{pkg.category}</span>
         <h1>{pkg.destination}</h1>
         <p className="details-state">📍 {pkg.state}</p>
-
         <p className="details-description">{pkg.description}</p>
 
         <div className="details-info">
@@ -94,9 +75,7 @@ function PackageDetails() {
           </div>
           <div>
             <span className="info-label">Price</span>
-            <span className="info-value">
-              RM {pkg.price.toLocaleString("en-MY")} / person
-            </span>
+            <span className="info-value">RM {pkg.price.toLocaleString()} / person</span>
           </div>
         </div>
 
@@ -110,7 +89,7 @@ function PackageDetails() {
         <Link to="/contact" className="btn btn-primary">
           Ask Us About This Trip
         </Link>
-      </article>
+      </div>
     </section>
   );
 }

@@ -4,151 +4,139 @@ import PackageCard from "../components/PackageCard";
 import StatusMessage from "../components/StatusMessage";
 import "./Packages.css";
 
-// ----- New features (all in the src/features folder) -----
-import SearchBar from "../features/SearchBar";            // Feature 1
-import CategoryFilter from "../features/CategoryFilter";  // Feature 2
-import SortMenu from "../features/SortMenu";              // Feature 3
+// new features
+import SearchBar from "../features/SearchBar";
+import CategoryFilter from "../features/CategoryFilter";
+import SortMenu from "../features/SortMenu";
 import {
   searchPackages,
   filterByCategory,
   getCategories,
   sortPackages,
 } from "../features/featureLogic";
-// Feature 4 (details page) is connected in App.jsx and PackageCard.jsx
-
-// Mock API: a local JSON file in public/data/packages.json
-const API_URL = "/data/packages.json";
 
 function Packages() {
-  // ----- State: API data -----
-  const [packages, setPackages] = useState([]);   // starts as an empty list
-  const [loading, setLoading] = useState(true);   // true while fetching
-  const [error, setError] = useState(null);       // error message, or null
-  const [reloadKey, setReloadKey] = useState(0);  // change it to fetch again
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [reload, setReload] = useState(0);
 
-  // ----- State: new features -----
-  const [searchTerm, setSearchTerm] = useState("");                 // Feature 1
-  const [selectedCategory, setSelectedCategory] = useState("All");  // Feature 2
-  const [sortBy, setSortBy] = useState("default");                  // Feature 3
+  // for the new features
+  const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("All");
+  const [sortBy, setSortBy] = useState("default");
 
-  // ----- Fetch data from the API -----
-  // Runs once when the page loads, and again whenever reloadKey changes
+  // get the packages from the json file (mock api)
   useEffect(() => {
-    fetch(API_URL)
+    fetch("/data/packages.json")
       .then((res) => {
-        // fetch() does not treat 404 as an error, so we check it ourselves
         if (!res.ok) {
-          throw new Error("Server responded with status " + res.status);
+          throw new Error("Failed to load");
         }
-        return res.json(); // convert the response into JavaScript data
+        return res.json();
       })
       .then((data) => {
-        // Make sure the API gave us a list
-        if (!Array.isArray(data)) {
-          throw new Error("API did not return a list of packages");
-        }
-        setPackages(data); // store the data in state
+        setPackages(data);
         setLoading(false);
       })
       .catch((err) => {
-        // Runs if ANYTHING above fails
-        console.error("Failed to load packages:", err);
+        console.log(err);
         setError("Sorry, we couldn't load the travel packages. Please try again.");
         setLoading(false);
       });
-  }, [reloadKey]);
+  }, [reload]);
 
-  // ----- Button handlers -----
+  // try again button - runs useEffect again
   function handleRetry() {
     setLoading(true);
     setError(null);
-    setReloadKey(reloadKey + 1); // changing this runs useEffect again
+    setReload(reload + 1);
   }
 
   function handleReset() {
     setSearchTerm("");
-    setSelectedCategory("All");
+    setCategory("All");
     setSortBy("default");
   }
 
-  // ----- Apply the features, one step at a time -----
-  const categories = getCategories(packages);                         // for the dropdown
-  const searched = searchPackages(packages, searchTerm);               // Feature 1
-  const filtered = filterByCategory(searched, selectedCategory);       // Feature 2
-  const visiblePackages = sortPackages(filtered, sortBy);              // Feature 3
+  // search -> filter -> sort
+  const categories = getCategories(packages);
+  const searched = searchPackages(packages, searchTerm);
+  const filtered = filterByCategory(searched, category);
+  const result = sortPackages(filtered, sortBy);
 
-  // ----- Decide what to show -----
-  let content;
-
+  // loading
   if (loading) {
-    content = <StatusMessage type="loading" message="Loading travel packages..." />;
-  } else if (error) {
-    content = <StatusMessage type="error" message={error} onRetry={handleRetry} />;
-  } else if (packages.length === 0) {
-    // The API itself returned nothing
-    content = (
-      <StatusMessage
-        type="empty"
-        message="No travel packages are available right now. Please check back soon."
-      />
+    return (
+      <section>
+        <PageHeader title="Travel Packages" subtitle="Find your next trip around Malaysia." />
+        <StatusMessage type="loading" message="Loading travel packages..." />
+      </section>
     );
-  } else {
-    content = (
-      <div>
-        {/* Toolbar with the new features */}
-        <div className="package-filters">
-          <SearchBar value={searchTerm} onChange={setSearchTerm} />
-          <CategoryFilter
-            categories={categories}
-            value={selectedCategory}
-            onChange={setSelectedCategory}
-          />
-          <SortMenu value={sortBy} onChange={setSortBy} />
-          <button type="button" className="reset-btn" onClick={handleReset}>
-            Reset
-          </button>
-        </div>
+  }
 
-        <p className="package-count" aria-live="polite">
-          Showing {visiblePackages.length} of {packages.length} packages
-        </p>
+  // error
+  if (error) {
+    return (
+      <section>
+        <PageHeader title="Travel Packages" subtitle="Find your next trip around Malaysia." />
+        <StatusMessage type="error" message={error} onRetry={handleRetry} />
+      </section>
+    );
+  }
 
-        {visiblePackages.length === 0 ? (
-          // There IS data, but nothing matches the search/filter
-          <StatusMessage
-            type="empty"
-            message="No packages match your search. Try a different keyword or category."
-            onRetry={handleReset}
-            buttonLabel="Clear Filters"
-          />
-        ) : (
-          <div className="package-grid">
-            {visiblePackages.map((pkg) => (
-              <PackageCard
-                key={pkg.id}
-                id={pkg.id}
-                destination={pkg.destination}
-                state={pkg.state}
-                category={pkg.category}
-                durationDays={pkg.durationDays}
-                durationNights={pkg.durationNights}
-                price={pkg.price}
-                description={pkg.description}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+  // no data from api
+  if (packages.length === 0) {
+    return (
+      <section>
+        <PageHeader title="Travel Packages" subtitle="Find your next trip around Malaysia." />
+        <StatusMessage type="empty" message="No travel packages available right now. Please come back later." />
+      </section>
     );
   }
 
   return (
-    <section className="packages-page">
-      <PageHeader
-        title="Travel Packages"
-        subtitle="Handpicked trips to the best destinations across Malaysia."
-      />
-      {content}
+    <section>
+      <PageHeader title="Travel Packages" subtitle="Find your next trip around Malaysia." />
+
+      <div className="package-filters">
+        <SearchBar value={searchTerm} onChange={setSearchTerm} />
+        <CategoryFilter categories={categories} value={category} onChange={setCategory} />
+        <SortMenu value={sortBy} onChange={setSortBy} />
+        <button type="button" className="reset-btn" onClick={handleReset}>
+          Reset
+        </button>
+      </div>
+
+      <p className="package-count">
+        Showing {result.length} of {packages.length} packages
+      </p>
+
+      {/* nothing matches the search / filter */}
+      {result.length === 0 ? (
+        <StatusMessage
+          type="empty"
+          message="No packages found. Try another keyword or category."
+          onRetry={handleReset}
+          buttonLabel="Clear Filters"
+        />
+      ) : (
+        <div className="package-grid">
+          {result.map((pkg) => (
+            <PackageCard
+              key={pkg.id}
+              id={pkg.id}
+              destination={pkg.destination}
+              state={pkg.state}
+              category={pkg.category}
+              durationDays={pkg.durationDays}
+              durationNights={pkg.durationNights}
+              price={pkg.price}
+              description={pkg.description}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

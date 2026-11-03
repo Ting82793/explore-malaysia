@@ -3,66 +3,61 @@ import PageHeader from "../components/PageHeader";
 import FormField from "../components/FormField";
 import "./Contact.css";
 
-// Email pattern: something@something.something
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// Checks the form and returns an object of error messages.
-// If the object is empty, every field is valid.
+// check the inputs and return the errors
 function validate(name, email, message) {
   const errors = {};
 
-  // Required field
   if (name.trim() === "") {
     errors.name = "Please enter your name.";
   }
 
-  // Required field + email format
+  // check email is not empty and has the right format (abc@abc.com)
+  const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (email.trim() === "") {
-    errors.email = "Please enter your email address.";
-  } else if (!EMAIL_PATTERN.test(email.trim())) {
-    errors.email = "Please enter a valid email, e.g. name@example.com.";
+    errors.email = "Please enter your email.";
+  } else if (!emailFormat.test(email)) {
+    errors.email = "Please enter a valid email, e.g. name@example.com";
   }
 
-  // Required field + length check
+  // message must be at least 10 characters
   if (message.trim() === "") {
     errors.message = "Please enter your message.";
   } else if (message.trim().length < 10) {
-    errors.message = "Your message should be at least 10 characters.";
+    errors.message = "Message must be at least 10 characters.";
   }
 
   return errors;
 }
 
 function Contact() {
-  // ----- State: one state for each controlled input -----
+  // controlled inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  // ----- State: form status -----
-  const [triedSubmit, setTriedSubmit] = useState(false); // clicked Send with errors?
-  const [submitted, setSubmitted] = useState(false);     // show success message?
-  const [submittedName, setSubmittedName] = useState("");
+  const [triedSubmit, setTriedSubmit] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [sentName, setSentName] = useState("");
 
-  // After the first failed submit, check the fields again on every key press,
-  // so errors disappear (and borders turn green) as soon as they are fixed.
+  // after the first submit, keep checking while the user types
+  // so the error goes away once they fix it
   const errors = triedSubmit ? validate(name, email, message) : {};
 
   function handleSubmit(e) {
     e.preventDefault(); // stop the page from refreshing
 
-    const foundErrors = validate(name, email, message);
+    const result = validate(name, email, message);
 
-    // Object.keys(...).length > 0 means there is at least one error
-    if (Object.keys(foundErrors).length > 0) {
+    // if there are errors, don't submit
+    if (Object.keys(result).length > 0) {
       setTriedSubmit(true);
-      setSubmitted(false);
-      return; // stop here, do not submit
+      setSuccess(false);
+      return;
     }
 
-    // Everything is valid: show the success message and clear the form
-    setSubmittedName(name.trim());
-    setSubmitted(true);
+    // no errors -> show success message and clear the form
+    setSentName(name);
+    setSuccess(true);
     setTriedSubmit(false);
     setName("");
     setEmail("");
@@ -73,28 +68,25 @@ function Contact() {
     <section className="contact-page">
       <PageHeader
         title="Contact Us"
-        subtitle="Have a question or feedback? Send us a message and we'll get back to you."
+        subtitle="Got a question or feedback? Send us a message!"
       />
 
       <div className="contact-card">
-        {/* Success confirmation */}
-        {submitted && (
-          <div className="success-message" role="status">
-            <strong>✅ Thank you, {submittedName}!</strong>
-            <p>Your message has been sent. Our team will reply to you soon.</p>
+        {success && (
+          <div className="success-message">
+            <strong>✅ Thank you, {sentName}!</strong>
+            <p>Your message has been sent. We will get back to you soon.</p>
           </div>
         )}
 
-        {/* onSubmit (not onClick) so pressing Enter also works.
-            noValidate turns off the browser's own pop-ups,
-            so our own error messages are shown instead. */}
-        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+        {/* noValidate = use our own error messages instead of the browser ones */}
+        <form onSubmit={handleSubmit} noValidate>
           <FormField
             label="Name"
             id="name"
             name="name"
             type="text"
-            placeholder="Your full name"
+            placeholder="Your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             error={errors.name}
@@ -118,7 +110,7 @@ function Contact() {
             id="message"
             name="message"
             isTextarea={true}
-            placeholder="Tell us about your enquiry or feedback..."
+            placeholder="Write your message here..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             error={errors.message}

@@ -8,7 +8,7 @@
   border-top: 4px solid var(--primary);
 }
 
-/* ---------- Success message ---------- */
+/* success message */
 .success-message {
   background-color: #dcfce7;
   border: 2px solid var(--success);
@@ -22,7 +22,7 @@
   margin-top: 0.25rem;
 }
 
-/* ---------- Submit button ---------- */
+/* submit button */
 .submit-btn {
   width: 100%;
   font-family: inherit;
@@ -41,7 +41,7 @@
   background-color: var(--primary-dark);
 }
 
-/* ---------- Mobile (480px and below) ---------- */
+/* mobile (480px and below) */
 @media (max-width: 480px) {
   .contact-card {
     padding: 1.25rem;

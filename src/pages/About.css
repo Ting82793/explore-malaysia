@@ -1,7 +1,7 @@
-/* ---------- Company description ---------- */
+/* company description */
 .about-story {
   display: grid;
-  grid-template-columns: 2fr 1fr;   /* text is twice as wide as mission box */
+  grid-template-columns: 2fr 1fr;
   gap: 2rem;
   align-items: center;
   margin-bottom: 3rem;
@@ -29,14 +29,14 @@
   margin-bottom: 0.5rem;
 }
 
-/* ---------- Highlights ---------- */
+/* highlights */
 .about-heading {
   text-align: center;
   color: var(--primary);
   margin-bottom: 1.5rem;
 }
 
-/* 4 columns on desktop */
+
 .highlight-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -44,7 +44,7 @@
   margin-bottom: 3rem;
 }
 
-/* ---------- Call to action ---------- */
+/* call to action */
 .about-cta {
   text-align: center;
   background-color: #ccfbf1;
@@ -57,20 +57,20 @@
   margin-bottom: 1rem;
 }
 
-/* ---------- Tablet (768px and below) ---------- */
+/* tablet (768px and below) */
 @media (max-width: 768px) {
   .about-story {
-    grid-template-columns: 1fr;     /* stack text and mission box */
+    grid-template-columns: 1fr;
   }
 
   .highlight-grid {
-    grid-template-columns: repeat(2, 1fr);   /* 2 columns */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ---------- Mobile (480px and below) ---------- */
+/* mobile (480px and below) */
 @media (max-width: 480px) {
   .highlight-grid {
-    grid-template-columns: 1fr;     /* 1 column */
+    grid-template-columns: 1fr;
   }
 }

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "./PackageCard.css";
 
-// Which CSS class (badge colour) to use for each category
-const badgeClasses = {
+// badge colour for each category
+const badgeColours = {
   "Beach & Island": "badge-beach-island",
   "Culture & Heritage": "badge-culture-heritage",
   Highlands: "badge-highlands",
@@ -10,23 +10,16 @@ const badgeClasses = {
   "Nature & Adventure": "badge-nature-adventure",
 };
 
-// Reusable card that shows ONE travel package.
-// Props come from one item in packages.json:
-//   props.id, props.destination, props.state, props.category,
-//   props.durationDays, props.durationNights, props.price, props.description
+// shows one travel package
 function PackageCard(props) {
-  const badgeClass = badgeClasses[props.category] || "";
-
-  // 1599 -> "1,599"
-  const formattedPrice = props.price.toLocaleString("en-MY");
+  const badge = badgeColours[props.category];
 
   return (
-    <article className="package-card">
-      <span className={`category-badge ${badgeClass}`}>{props.category}</span>
+    <div className="package-card">
+      <span className={"category-badge " + badge}>{props.category}</span>
 
       <h3 className="package-destination">{props.destination}</h3>
       <p className="package-state">📍 {props.state}</p>
-
       <p className="package-description">{props.description}</p>
 
       <div className="package-footer">
@@ -34,16 +27,16 @@ function PackageCard(props) {
           🕒 {props.durationDays} Days {props.durationNights} Nights
         </span>
         <span className="package-price">
-          RM {formattedPrice}
+          RM {props.price.toLocaleString()}
           <small> / person</small>
         </span>
       </div>
 
-      {/* Template literal builds the link, e.g. /packages/3 */}
+      {/* goes to the details page e.g. /packages/3 */}
       <Link to={`/packages/${props.id}`} className="details-btn">
         View Details
       </Link>
-    </article>
+    </div>
   );
 }
 

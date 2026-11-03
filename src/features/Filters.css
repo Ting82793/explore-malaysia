@@ -1,4 +1,4 @@
-/* Toolbar and inputs for the new features (search, category, sort) */
+/* styles for search, category and sort */
 
 .package-filters {
   display: flex;
@@ -15,10 +15,10 @@
 .filter-group {
   display: flex;
   flex-direction: column;
-  flex: 1 1 180px;     /* grow, but never narrower than 180px */
+  flex: 1 1 180px;
 }
 
-/* Search box gets more space */
+/* search box is wider */
 .filter-search {
   flex: 2 1 260px;
 }
@@ -65,7 +65,7 @@
   color: var(--white);
 }
 
-/* Mobile: everything full width, stacked */
+/* mobile */
 @media (max-width: 480px) {
   .filter-group,
   .filter-search,

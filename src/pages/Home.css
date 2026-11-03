@@ -1,4 +1,4 @@
-/* ---------- Hero text (shown on top of the slider) ---------- */
+/* text on the slider */
 .hero-title {
   font-size: 3rem;
   line-height: 1.2;
@@ -19,9 +19,7 @@
   justify-content: center;
 }
 
-/* (Button styles live in index.css so every page can use them) */
-
-/* ---------- Intro section ---------- */
+/* intro section */
 .home-intro {
   max-width: 700px;
   margin: 3rem auto 1rem;
@@ -39,7 +37,7 @@
   margin-bottom: 1.5rem;
 }
 
-/* ---------- Tablet (768px and below) ---------- */
+/* tablet (768px and below) */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.25rem;
@@ -50,7 +48,7 @@
   }
 }
 
-/* ---------- Mobile (480px and below) ---------- */
+/* mobile (480px and below) */
 @media (max-width: 480px) {
   .hero-title {
     font-size: 1.75rem;

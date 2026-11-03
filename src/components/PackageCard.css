@@ -14,7 +14,7 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* ---------- Category badge ---------- */
+/* category badge */
 .category-badge {
   align-self: flex-start;
   font-size: 0.75rem;
@@ -28,7 +28,7 @@
   color: var(--text);
 }
 
-/* One colour per category */
+/* badge colours */
 .badge-beach-island {
   background-color: #dbeafe;
   color: #1e40af;
@@ -54,7 +54,7 @@
   color: #92400e;
 }
 
-/* ---------- Text ---------- */
+/* text */
 .package-destination {
   font-size: 1.25rem;
   color: var(--text);
@@ -70,11 +70,11 @@
 .package-description {
   font-size: 0.95rem;
   color: var(--text-light);
-  flex: 1;              /* pushes the footer to the bottom of the card */
+  flex: 1;
   margin-bottom: 1rem;
 }
 
-/* ---------- Duration and price ---------- */
+/* duration and price */
 .package-footer {
   display: flex;
   justify-content: space-between;
@@ -102,7 +102,7 @@
   color: var(--text-light);
 }
 
-/* ---------- View Details button (Feature 4) ---------- */
+/* view details button */
 .details-btn {
   display: block;
   text-align: center;

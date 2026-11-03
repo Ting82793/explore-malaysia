@@ -1,26 +1,18 @@
-// ==========================================================
-// The logic behind the new features on the Packages page.
-// These are normal JavaScript functions (not components):
-// they take the list of packages in, and give a new list back.
-// The original list from the API is never changed.
-// ==========================================================
+// functions for the new features on the packages page
 
-// ---------- FEATURE 1: Search ----------
-// Keeps packages whose destination OR state contains the search text.
-// Example: "pahang" matches "Cameron Highlands Tea Retreat" (state: Pahang)
+// Feature 1 - search by destination or state
 export function searchPackages(packages, searchTerm) {
-  const searchText = searchTerm.trim().toLowerCase();
+  const text = searchTerm.trim().toLowerCase();
 
   return packages.filter((pkg) => {
     return (
-      pkg.destination.toLowerCase().includes(searchText) ||
-      pkg.state.toLowerCase().includes(searchText)
+      pkg.destination.toLowerCase().includes(text) ||
+      pkg.state.toLowerCase().includes(text)
     );
   });
 }
 
-// ---------- FEATURE 2: Category filter ----------
-// Keeps packages in the chosen category ("All" keeps everything).
+// Feature 2 - filter by category
 export function filterByCategory(packages, category) {
   if (category === "All") {
     return packages;
@@ -28,9 +20,7 @@ export function filterByCategory(packages, category) {
   return packages.filter((pkg) => pkg.category === category);
 }
 
-// Builds the list of categories for the dropdown, e.g.
-// ["All", "Beach & Island", "Culture & Heritage", ...]
-// Each category is added only once.
+// get all the categories for the dropdown (no repeats)
 export function getCategories(packages) {
   const categories = ["All"];
 
@@ -43,10 +33,9 @@ export function getCategories(packages) {
   return categories;
 }
 
-// ---------- FEATURE 3: Sort ----------
-// .slice() makes a copy first, because .sort() changes the list it is given.
-// In the compare function: negative = a goes first, positive = b goes first.
+// Feature 3 - sort by price or duration
 export function sortPackages(packages, sortBy) {
+  // copy the list first so the original data doesn't change
   const copy = packages.slice();
 
   return copy.sort((a, b) => {
@@ -54,8 +43,8 @@ export function sortPackages(packages, sortBy) {
     if (sortBy === "price-desc") return b.price - a.price;
     if (sortBy === "duration-asc") return a.durationDays - b.durationDays;
     if (sortBy === "duration-desc") return b.durationDays - a.durationDays;
-    return a.id - b.id; // "Recommended" = original order
+    return a.id - b.id;
   });
 }
 
-// FEATURE 4 (Package details page) is in PackageDetails.jsx
+// Feature 4 (details page) is in PackageDetails.jsx
